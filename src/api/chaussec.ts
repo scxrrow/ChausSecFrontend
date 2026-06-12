@@ -1,22 +1,53 @@
 import type { NmapScanResult, ScanHistoryItem, SuricataAlert } from '../types'
 
-function getAuthHeader(): string {
-  return localStorage.getItem('chaussec_auth') ?? ''
+const AUTH_KEY = 'chaussec_auth'
+
+function getAuthToken(): string | null {
+  return localStorage.getItem(AUTH_KEY)
+}
+
+/**
+ * Retourne la valeur exacte du header Authorization.
+ * Renvoie null si aucun token n'est stocké → le header ne sera pas envoyé.
+ */
+function getBearerToken(): string | null {
+  const raw = getAuthToken()
+  if (!raw) return null
+  // Si déjà formaté avec Bearer, on le garde tel quel
+  if (raw.startsWith('Bearer ')) return raw
+  // Sinon on ajoute le préfixe
+  return `Bearer ${raw}`
 }
 
 async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T> {
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+  }
+
+  const bearer = getBearerToken()
+  if (bearer) {
+    headers['Authorization'] = bearer
+  }
+
+  // On fusionne avec les headers supplémentaires fournis
+  if (options.headers) {
+    const extra = options.headers as Record<string, string>
+    for (const key of Object.keys(extra)) {
+      headers[key] = extra[key]
+    }
+  }
+
   const res = await fetch(path, {
     ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: getAuthHeader(),
-      ...options.headers,
-    },
+    headers,
   })
 
   if (res.status === 401 || res.status === 403) {
-    localStorage.removeItem('chaussec_auth')
-    window.location.href = '/login'
+    localStorage.removeItem(AUTH_KEY)
+    // On évite une boucle de redirection si on est déjà sur /login
+    if (window.location.pathname !== '/login') {
+      window.location.href = '/login'
+    }
     throw new Error('Non authentifié')
   }
 
@@ -37,7 +68,8 @@ export async function verifyAuth(username: string, password: string): Promise<bo
 
     if (res.ok) {
       const data = (await res.json()) as { token: string }
-      localStorage.setItem('chaussec_auth', `Bearer ${data.token}`)
+      if (!data.token) return false
+      localStorage.setItem(AUTH_KEY, `Bearer ${data.token}`)
       return true
     }
     return false
@@ -83,9 +115,9 @@ export async function getRecentAlerts(): Promise<SuricataAlert[]> {
 }
 
 export function logout(): void {
-  localStorage.removeItem('chaussec_auth')
+  localStorage.removeItem(AUTH_KEY)
 }
 
 export function isAuthenticated(): boolean {
-  return !!localStorage.getItem('chaussec_auth')
+  return !!getAuthToken()
 }
