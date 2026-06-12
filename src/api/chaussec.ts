@@ -60,7 +60,7 @@ async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T> 
 
 export async function verifyAuth(username: string, password: string): Promise<boolean> {
   try {
-    const res = await fetch('/chaussec/cki/login', {
+    const res = await fetch(`http://chaussec-api:5050/chaussec/cki/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password }),
