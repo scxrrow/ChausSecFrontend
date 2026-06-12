@@ -8,12 +8,13 @@ async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T> 
   const res = await fetch(path, {
     ...options,
     headers: {
+      'Content-Type': 'application/json',
       Authorization: getAuthHeader(),
       ...options.headers,
     },
   })
 
-  if (res.status === 401) {
+  if (res.status === 401 || res.status === 403) {
     localStorage.removeItem('chaussec_auth')
     window.location.href = '/login'
     throw new Error('Non authentifié')
@@ -27,13 +28,16 @@ async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T> 
 }
 
 export async function verifyAuth(username: string, password: string): Promise<boolean> {
-  const token = btoa(`${username}:${password}`)
   try {
-    const res = await fetch('/docker', {
-      headers: { Authorization: `Basic ${token}` },
+    const res = await fetch('/chaussec/cki/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password }),
     })
-    if (res.ok || res.status === 404) {
-      localStorage.setItem('chaussec_auth', `Basic ${token}`)
+
+    if (res.ok) {
+      const data = (await res.json()) as { token: string }
+      localStorage.setItem('chaussec_auth', `Bearer ${data.token}`)
       return true
     }
     return false
