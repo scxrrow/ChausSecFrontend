@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react'
 import { getRecentAlerts } from '../api/chaussec'
+import { GrafanaDashboard } from '../components/GrafanaDashboard'
 import type { SuricataAlert } from '../types'
+
+// Get from environment or use defaults
+const GRAFANA_URL = import.meta.env.VITE_GRAFANA_URL || 'http://localhost:3000'
+const GRAFANA_DASHBOARD_UID = import.meta.env.VITE_GRAFANA_DASHBOARD_UID || 'chaussec-soc'
 
 export function DashboardPage() {
   const [alerts, setAlerts] = useState<SuricataAlert[]>([])
@@ -29,6 +34,17 @@ export function DashboardPage() {
       </div>
 
       <div className="dashboard-grid">
+        {/* Grafana Dashboard - Full width */}
+        <div className="dashboard-card" style={{ gridColumn: '1 / -1' }}>
+          <h2>Dashboard Grafana</h2>
+          <GrafanaDashboard 
+            dashboardUid={GRAFANA_DASHBOARD_UID} 
+            dashboardUrl={GRAFANA_URL}
+            height="700px"
+          />
+        </div>
+
+        {/* Recent Alerts */}
         <div className="dashboard-card">
           <h2>Alertes récentes</h2>
           {loading ? (
