@@ -1,34 +1,58 @@
-const GRAFANA = import.meta.env.VITE_GRAFANA_URL || 'http://localhost:3000'
-const UID = import.meta.env.VITE_GRAFANA_DASHBOARD_UID || 'chaussec-soc'
-
-function GrafanaPanel({ panelId, title, from = 'now-1h', full = false }: {
-  panelId: number
-  title: string
-  from?: string
-  full?: boolean
-}) {
-  const src = `${GRAFANA}/d-solo/${UID}/dashboard?panelId=${panelId}&orgId=1&from=${from}&to=now&refresh=5s&theme=dark`
-  return (
-    <div className={`panel${full ? ' panel-full' : ''}`}>
-      <h3 className="panel-title">{title}</h3>
-      <iframe src={src} title={title} className="grafana-iframe" />
-    </div>
-  )
-}
+import { useEffect, useState } from 'react'
+import { getRecentAlerts } from '../api/chaussec'
+import type { SuricataAlert } from '../types'
 
 export function DashboardPage() {
+  const [alerts, setAlerts] = useState<SuricataAlert[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+
+  useEffect(() => {
+    const fetchAlerts = async () => {
+      try {
+        const data = await getRecentAlerts()
+        setAlerts(data)
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Erreur lors du chargement')
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchAlerts()
+  }, [])
+
   return (
     <div className="page">
-      <h2 className="page-title">Dashboard de Supervision</h2>
-      <div className="panels-grid">
-        <GrafanaPanel panelId={1} title="Trafic HTTP Prometheus" />
-        <GrafanaPanel panelId={2} title="Détections IDS (Suricata)" />
-        <GrafanaPanel panelId={3} title="Scans Nmap — Ports Ouverts (10h)" from="now-10h" full />
+      <div className="page-header">
+        <h1>Tableau de bord</h1>
+        <p>Vue d'ensemble de la sécurité</p>
       </div>
-      <div className="grafana-link">
-        <a href={`${GRAFANA}/d/${UID}`} target="_blank" rel="noreferrer">
-          Ouvrir Grafana complet →
-        </a>
+
+      <div className="dashboard-grid">
+        <div className="dashboard-card">
+          <h2>Alertes récentes</h2>
+          {loading ? (
+            <p>Chargement...</p>
+          ) : error ? (
+            <p style={{ color: '#ef4444' }}>{error}</p>
+          ) : alerts.length === 0 ? (
+            <p>Aucune alerte récente</p>
+          ) : (
+            <div>
+              {alerts.slice(0, 5).map((alert, index) => (
+                <div key={index} className="alert-item">
+                  <span className={`alert-severity ${alert.alert.severity.toLowerCase()}`}>
+                    {alert.alert.severity}
+                  </span>
+                  <span style={{ marginLeft: '12px' }}>{alert.alert.signature}</span>
+                  <div style={{ marginTop: '8px', fontSize: '12px', color: '#94a3b8' }}>
+                    {alert.src_ip}:{alert.src_port} → {alert.dest_ip}:{alert.dest_port}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )

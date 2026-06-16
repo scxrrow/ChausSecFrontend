@@ -1,27 +1,42 @@
 export interface NmapScanResult {
   target: string
   status: string
-  openPorts: string[] | null
-  rawOutput: string
+  ports: Array<{
+    port: number
+    state: string
+    service: string
+  }>
+  os?: string
+  timestamps: {
+    start: string
+    end: string
+  }
 }
 
 export interface ScanHistoryItem {
-  targetIp: string
+  id: string
+  target: string
   status: string
-  openPortsCount: number
-  scanTime: string
+  startTime: string
+  endTime: string
+  portCount: number
 }
 
 export interface SuricataAlert {
   timestamp: string
+  event_type: string
+  alert: {
+    signature: string
+    severity: string
+    category: string
+  }
   src_ip: string
-  dest_ip: string
   src_port: number
+  dest_ip: string
   dest_port: number
   proto: string
-  alert?: {
-    signature: string
-    category: string
-    severity: number
-  }
+}
+
+export interface AuthResponse {
+  token: string
 }

@@ -23,8 +23,12 @@ export function LoginPage() {
       } else {
         setError('Identifiants invalides')
       }
-    } catch {
-      setError('Impossible de contacter le serveur API (port 5050)')
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message)
+      } else {
+        setError('Impossible de contacter le serveur API')
+      }
     } finally {
       setLoading(false)
     }

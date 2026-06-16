@@ -2,24 +2,49 @@ import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
 export function Navbar() {
-  const { logout } = useAuth()
-  const { pathname } = useLocation()
+  const { authenticated, logout } = useAuth()
+  const location = useLocation()
 
-  const active = (path: string) => pathname === path ? 'active' : ''
+  if (location.pathname === '/login') return null
 
   return (
     <nav className="navbar">
-      <div className="navbar-brand">
-        <span className="brand-icon">⬡</span>
-        <span className="brand-text">ChausSec SOC</span>
-      </div>
-      <ul className="navbar-links">
-        <li><Link to="/" className={active('/')}>Dashboard</Link></li>
-        <li><Link to="/nmap" className={active('/nmap')}>Scanner Nmap</Link></li>
-        <li><Link to="/history" className={active('/history')}>Historique</Link></li>
-        <li><Link to="/alerts" className={active('/alerts')}>Alertes IDS</Link></li>
-      </ul>
-      <button className="logout-btn" onClick={logout}>Déconnexion</button>
+      <div className="navbar-title">ChausSec SOC</div>
+      {authenticated && (
+        <>
+          <div className="navbar-links">
+            <Link
+              to="/"
+              className={`navbar-link ${location.pathname === '/' ? 'active' : ''}`}
+            >
+              Dashboard
+            </Link>
+            <Link
+              to="/alerts"
+              className={`navbar-link ${location.pathname === '/alerts' ? 'active' : ''}`}
+            >
+              Alertes
+            </Link>
+            <Link
+              to="/history"
+              className={`navbar-link ${location.pathname === '/history' ? 'active' : ''}`}
+            >
+              Historique
+            </Link>
+            <Link
+              to="/nmap"
+              className={`navbar-link ${location.pathname === '/nmap' ? 'active' : ''}`}
+            >
+              Nmap
+            </Link>
+          </div>
+          <div className="navbar-actions">
+            <button className="navbar-btn" onClick={logout}>
+              DÃ©connexion
+            </button>
+          </div>
+        </>
+      )}
     </nav>
   )
 }

@@ -1,10 +1,11 @@
 import { useState, type FormEvent } from 'react'
-import { startNmapScan } from '../api/chaussec'
-import type { NmapScanResult } from '../types'
+import { startNmapScan, getScanHistory } from '../api/chaussec'
+import type { NmapScanResult, ScanHistoryItem } from '../types'
 
 export function NmapPage() {
   const [target, setTarget] = useState('')
   const [result, setResult] = useState<NmapScanResult | null>(null)
+  const [scans, setScans] = useState<ScanHistoryItem[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -13,10 +14,10 @@ export function NmapPage() {
     if (!target.trim()) return
     setLoading(true)
     setError('')
-    setResult(null)
     try {
       const data = await startNmapScan(target.trim())
       setResult(data)
+      await fetchHistory()
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Erreur lors du scan')
     } finally {
@@ -24,69 +25,97 @@ export function NmapPage() {
     }
   }
 
-  const successClass = result?.status === 'success' ? 'success' : 'error'
+  const fetchHistory = async () => {
+    try {
+      const data = await getScanHistory()
+      setScans(data)
+    } catch {
+      // Silently fail for history
+    }
+  }
 
   return (
     <div className="page">
-      <h2 className="page-title">Scanner Nmap</h2>
-
-      <div className="scan-card">
-        <form onSubmit={handleScan} className="scan-form">
-          <div className="scan-input-row">
-            <input
-              type="text"
-              value={target}
-              onChange={(e) => setTarget(e.target.value)}
-              placeholder="Cible : 192.168.1.1 ou hostname.local"
-              className="scan-input"
-              required
-              disabled={loading}
-            />
-            <button type="submit" className="scan-btn" disabled={loading}>
-              {loading ? <><span className="spinner" /> Scan en cours...</> : 'Lancer le scan'}
-            </button>
-          </div>
-        </form>
-
-        {loading && (
-          <div className="scan-progress">
-            <div className="progress-bar" />
-            <p>nmap en cours sur <strong>{target}</strong>…</p>
-          </div>
-        )}
-
-        {error && <div className="error-msg" style={{ marginTop: 16 }}>{error}</div>}
-
-        {result && (
-          <div className="scan-result">
-            <div className="result-header">
-              <span className={`status-badge ${successClass}`}>{result.status}</span>
-              <span className="result-target">{result.target}</span>
-            </div>
-            <div className="result-grid">
-              <div className="result-item">
-                <span className="result-label">Ports ouverts</span>
-                <span className="result-value">
-                  {result.openPorts && result.openPorts.length > 0
-                    ? result.openPorts.join(', ')
-                    : 'Aucun port détecté'}
-                </span>
-              </div>
-            </div>
-            {result.rawOutput && (
-              <details className="raw-output">
-                <summary>Sortie brute (XML nmap)</summary>
-                <pre>{result.rawOutput}</pre>
-              </details>
-            )}
-          </div>
-        )}
+      <div className="page-header">
+        <h1>Scan Nmap</h1>
+        <p>Effectuez des scans de ports sur des cibles</p>
       </div>
 
-      <div className="nmap-info">
-        <h3>Commande exécutée côté API</h3>
-        <code>nmap -sV -oX - &lt;cible&gt;</code>
-        <p>Détecte les services et versions sur tous les ports ouverts. Les métriques sont envoyées à InfluxDB.</p>
+      <form className="scan-form" onSubmit={handleScan}>
+        <input
+          type="text"
+          className="scan-input"
+          value={target}
+          onChange={(e) => setTarget(e.target.value)}
+          placeholder="Entrez une IP ou un nom d'hôte (ex: 192.168.1.1)"
+          disabled={loading}
+        />
+        <button type="submit" className="scan-btn" disabled={loading || !target.trim()}>
+          {loading ? 'Scanning...' : 'Scanner'}
+        </button>
+      </form>
+
+      {error && <div className="error-msg">{error}</div>}
+
+      {result && (
+        <div className="dashboard-card" style={{ marginTop: '24px' }}>
+          <h2>Résultat du scan</h2>
+          <p><strong>Cible:</strong> {result.target}</p>
+          <p><strong>Statut:</strong> {result.status}</p>
+          <p><strong>OS:</strong> {result.os || 'Inconnu'}</p>
+          
+          <h3 style={{ marginTop: '16px' }}>Ports ouverts:</h3>
+          {result.ports.length === 0 ? (
+            <p>Aucun port ouvert trouvé</p>
+          ) : (
+            <table className="results-table">
+              <thead>
+                <tr>
+                  <th>Port</th>
+                  <th>État</th>
+                  <th>Service</th>
+                </tr>
+              </thead>
+              <tbody>
+                {result.ports.map((port) => (
+                  <tr key={port.port}>
+                    <td>{port.port}</td>
+                    <td>{port.state}</td>
+                    <td>{port.service}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+      )}
+
+      <div className="dashboard-card" style={{ marginTop: '24px' }}>
+        <h2>Historique des scans</h2>
+        {scans.length === 0 ? (
+          <p>Aucun scan précédent</p>
+        ) : (
+          <table className="results-table">
+            <thead>
+              <tr>
+                <th>Cible</th>
+                <th>Statut</th>
+                <th>Ports</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {scans.slice(0, 10).map((scan) => (
+                <tr key={scan.id}>
+                  <td>{scan.target}</td>
+                  <td>{scan.status}</td>
+                  <td>{scan.portCount}</td>
+                  <td>{new Date(scan.startTime).toLocaleDateString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   )

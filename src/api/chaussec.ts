@@ -6,16 +6,10 @@ function getAuthToken(): string | null {
   return localStorage.getItem(AUTH_KEY)
 }
 
-/**
- * Retourne la valeur exacte du header Authorization.
- * Renvoie null si aucun token n'est stocké → le header ne sera pas envoyé.
- */
 function getBearerToken(): string | null {
   const raw = getAuthToken()
   if (!raw) return null
-  // Si déjà formaté avec Bearer, on le garde tel quel
   if (raw.startsWith('Bearer ')) return raw
-  // Sinon on ajoute le préfixe
   return `Bearer ${raw}`
 }
 
@@ -29,7 +23,6 @@ async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T> 
     headers['Authorization'] = bearer
   }
 
-  // On fusionne avec les headers supplémentaires fournis
   if (options.headers) {
     const extra = options.headers as Record<string, string>
     for (const key of Object.keys(extra)) {
@@ -44,7 +37,6 @@ async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T> 
 
   if (res.status === 401 || res.status === 403) {
     localStorage.removeItem(AUTH_KEY)
-    // On évite une boucle de redirection si on est déjà sur /login
     if (window.location.pathname !== '/login') {
       window.location.href = '/login'
     }
@@ -52,7 +44,8 @@ async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T> 
   }
 
   if (!res.ok) {
-    throw new Error(`Erreur ${res.status}: ${res.statusText}`)
+    const errorData = await res.json().catch(() => ({}))
+    throw new Error(errorData.error || `Erreur ${res.status}: ${res.statusText}`)
   }
 
   return res.json() as Promise<T>

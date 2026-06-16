@@ -1,8 +1,7 @@
-import { Navigate } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
-import type { ReactNode } from 'react'
 
-export function ProtectedRoute({ children }: { children: ReactNode }) {
+export function ProtectedRoute() {
   const { authenticated } = useAuth()
-  return authenticated ? <>{children}</> : <Navigate to="/login" replace />
+  return authenticated ? <Outlet /> : <Navigate to="/login" replace />
 }

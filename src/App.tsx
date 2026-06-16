@@ -1,44 +1,27 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import type { ReactNode } from 'react'
-import { AuthProvider } from './context/AuthContext'
-import { ProtectedRoute } from './components/ProtectedRoute'
+import { Routes, Route } from 'react-router-dom'
 import { Navbar } from './components/Navbar'
+import { ProtectedRoute } from './components/ProtectedRoute'
 import { LoginPage } from './pages/LoginPage'
 import { DashboardPage } from './pages/DashboardPage'
-import { NmapPage } from './pages/NmapPage'
-import { HistoryPage } from './pages/HistoryPage'
 import { AlertsPage } from './pages/AlertsPage'
+import { HistoryPage } from './pages/HistoryPage'
+import { NmapPage } from './pages/NmapPage'
 
-function Layout({ children }: { children: ReactNode }) {
+export function App() {
   return (
-    <div className="app-layout">
+    <>
       <Navbar />
-      <main className="main-content">{children}</main>
-    </div>
-  )
-}
-
-function Protected({ children }: { children: ReactNode }) {
-  return (
-    <ProtectedRoute>
-      <Layout>{children}</Layout>
-    </ProtectedRoute>
-  )
-}
-
-export default function App() {
-  return (
-    <AuthProvider>
-      <BrowserRouter>
+      <main className="main-layout">
         <Routes>
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/" element={<Protected><DashboardPage /></Protected>} />
-          <Route path="/nmap" element={<Protected><NmapPage /></Protected>} />
-          <Route path="/history" element={<Protected><HistoryPage /></Protected>} />
-          <Route path="/alerts" element={<Protected><AlertsPage /></Protected>} />
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/" element={<DashboardPage />} />
+            <Route path="/alerts" element={<AlertsPage />} />
+            <Route path="/history" element={<HistoryPage />} />
+            <Route path="/nmap" element={<NmapPage />} />
+          </Route>
         </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+      </main>
+    </>
   )
 }
