@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 
 interface GrafanaDashboardProps {
   dashboardUid: string
@@ -12,7 +12,6 @@ export function GrafanaDashboard({
   height = '600px' 
 }: GrafanaDashboardProps) {
   const iframeRef = useRef<HTMLIFrameElement>(null)
-  const [error, setError] = useState('')
 
   useEffect(() => {
     // Build the Grafana embed URL
@@ -26,18 +25,12 @@ export function GrafanaDashboard({
 
   return (
     <div style={{ width: '100%', height, border: '1px solid #334155', borderRadius: '8px', overflow: 'hidden' }}>
-      {error ? (
-        <div style={{ padding: '20px', color: '#ef4444' }}>
-          {error}
-        </div>
-      ) : (
-        <iframe
-          ref={iframeRef}
-          style={{ width: '100%', height: '100%', border: 'none' }}
-          title="Grafana Dashboard"
-          allowFullScreen
-        />
-      )}
+      <iframe
+        ref={iframeRef}
+        style={{ width: '100%', height: '100%', border: 'none' }}
+        title="Grafana Dashboard"
+        allowFullScreen
+      />
     </div>
   )
 }
