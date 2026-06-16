@@ -7,7 +7,7 @@ export default defineConfig({
     port: 4173,
     proxy: {
       '/chaussec': {
-        target: 'http://chaussec-api:5050',
+        target: 'http://localhost:5050',
         changeOrigin: true,
       },
       '/docker': {
