@@ -7,15 +7,15 @@ export default defineConfig({
     port: 4173,
     proxy: {
       '/chaussec': {
-        target: 'http://localhost:5050',
+        target: 'http://localhost:5050/chaussec',
         changeOrigin: true,
       },
       '/docker': {
-        target: 'http://localhost:5050',
+        target: 'http://localhost:5050/docker',
         changeOrigin: true,
       },
       '/requin': {
-        target: 'http://localhost:5050',
+        target: 'http://localhost:5050/requin',
         changeOrigin: true,
       },
       '/opensearch': {
