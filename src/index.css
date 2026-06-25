@@ -1,59 +1,201 @@
+/* ============================================
+   CHAUSSEC FRONTEND - HACKER-GIRLY THEME
+   A fusion of cyberpunk hacker aesthetics with 
+   playful, girly elements
+   ============================================ */
+
+/* Import a cute monospace font for that hacker terminal feel */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Comic+Neue:wght@400;700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-  background: #0f172a;
-  color: #e2e8f0;
-  min-height: 100vh;
+/* Base Styles - Dark background with pink/purple hacker vibe */
+:root {
+  /* Primary Colors - Hacker Girly Palette */
+  --bg-dark: #0a0412;
+  --bg-card: #1a0a2e;
+  --bg-input: #2d1b4e;
+  
+  /* Accent Colors - Pink/Purple Hacker */
+  --primary: #ff2a6d;
+  --primary-hover: #e91e63;
+  --secondary: #00d4ff;
+  --secondary-hover: #00b8e6;
+  --accent: #ff00aa;
+  
+  /* Text Colors */
+  --text-primary: #ffffff;
+  --text-secondary: #b8a0d8;
+  --text-muted: #8a6bb8;
+  
+  /* Border Colors */
+  --border: #4a2d7d;
+  --border-hover: #6d3f96;
+  
+  /* Matrix Green for status/hacker feel */
+  --matrix-green: #00ff88;
+  --matrix-green-dim: #00cc6a;
+  
+  /* Girly touches */
+  --girly-pink: #ff69b4;
+  --girly-purple: #b19cd9;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #ff2a6d 0%, #b19cd9 50%, #00d4ff 100%);
+  --gradient-card: linear-gradient(145deg, rgba(255,42,109,0.1) 0%, rgba(0,212,255,0.1) 100%);
+  
+  /* Shadows */
+  --shadow-glow: 0 0 20px rgba(255, 42, 109, 0.3);
+  --shadow-card: 0 10px 40px rgba(255, 42, 109, 0.2);
 }
 
+body {
+  font-family: 'Fira Code', 'Comic Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  min-height: 100vh;
+  /* Subtle animated background - hacker grid with girly colors */
+  background-image: 
+    linear-gradient(rgba(255, 42, 109, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: gridMove 20s linear infinite;
+}
+
+@keyframes gridMove {
+  0% { background-position: 0 0; }
+  100% { background-position: 50px 50px; }
+}
+
+/* Scrollbar - Pink hacker style */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-hover);
+}
+
+/* Selection - Purple hacker highlight */
+::selection {
+  background: var(--secondary);
+  color: var(--bg-dark);
+}
+
+/* ============================================
+   LOGIN PAGE - Cute Hacker Terminal Look
+   ============================================ */
 .login-container {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: #0f172a;
+  background: var(--bg-dark);
+  /* Add a subtle radial gradient for depth */
+  background-image: 
+    radial-gradient(ellipse at center, rgba(255, 42, 109, 0.1) 0%, transparent 70%),
+    linear-gradient(rgba(255, 42, 109, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
 }
 
 .login-card {
-  background: #1e293b;
-  border-radius: 12px;
+  background: var(--bg-card);
+  border-radius: 16px;
   padding: 48px;
   width: 100%;
   max-width: 420px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow-card), var(--shadow-glow);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.login-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-primary);
+}
+
+.login-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: 
+    radial-gradient(circle, rgba(255, 42, 109, 0.1) 0%, transparent 70%),
+    radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+  animation: rotate 20s linear infinite;
+  z-index: 0;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .login-header {
   text-align: center;
   margin-bottom: 32px;
+  position: relative;
+  z-index: 1;
 }
 
 .login-icon {
   font-size: 48px;
   display: block;
   margin-bottom: 16px;
+  color: var(--secondary);
+  text-shadow: 0 0 10px var(--secondary);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
 }
 
 .login-header h1 {
   font-size: 28px;
   font-weight: 700;
   margin-bottom: 8px;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .login-header p {
-  color: #94a3b8;
+  color: var(--text-secondary);
   font-size: 16px;
+  font-family: 'Comic Neue', sans-serif;
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  position: relative;
+  z-index: 1;
 }
 
 .form-group {
@@ -65,40 +207,50 @@ body {
 .form-group label {
   font-size: 14px;
   font-weight: 500;
-  color: #cbd5e1;
+  color: var(--text-secondary);
 }
 
 .form-group input {
-  background: #0f172a;
-  border: 1px solid #334155;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 12px 16px;
-  color: #e2e8f0;
+  color: var(--text-primary);
   font-size: 16px;
-  transition: border-color 0.2s;
+  transition: all 0.3s ease;
+  font-family: 'Fira Code', monospace;
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: var(--primary);
+  box-shadow: 0 0 10px rgba(255, 42, 109, 0.3);
+  transform: translateY(-2px);
 }
 
 .form-group input::placeholder {
-  color: #64748b;
+  color: var(--text-muted);
 }
 
 .error-msg {
-  background: #1e3a5f;
-  border: 1px solid #2563eb;
-  color: #93c5fd;
+  background: rgba(255, 42, 109, 0.1);
+  border: 1px solid var(--primary);
+  color: var(--primary);
   padding: 12px 16px;
   border-radius: 8px;
   font-size: 14px;
   text-align: center;
+  animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
 }
 
 .submit-btn {
-  background: #3b82f6;
+  background: var(--gradient-primary);
   color: white;
   border: none;
   border-radius: 8px;
@@ -106,32 +258,47 @@ body {
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.3s ease;
   margin-top: 8px;
+  font-family: 'Fira Code', monospace;
+  letter-spacing: 1px;
 }
 
 .submit-btn:hover {
-  background: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow);
 }
 
 .submit-btn:disabled {
-  background: #475569;
+  background: var(--border);
   cursor: not-allowed;
+  opacity: 0.5;
 }
 
-/* Navbar */
+/* ============================================
+   NAVBAR - Cyberpunk Girly
+   ============================================ */
 .navbar {
-  background: #1e293b;
+  background: rgba(26, 10, 46, 0.95);
   padding: 16px 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #334155;
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .navbar-title {
   font-size: 20px;
   font-weight: 700;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: 'Fira Code', monospace;
 }
 
 .navbar-links {
@@ -140,23 +307,25 @@ body {
 }
 
 .navbar-link {
-  color: #cbd5e1;
+  color: var(--text-secondary);
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
   padding: 8px 0;
   border-bottom: 2px solid transparent;
-  transition: all 0.2s;
+  transition: all 0.3s ease;
+  font-family: 'Fira Code', monospace;
 }
 
 .navbar-link:hover {
-  color: #e2e8f0;
-  border-bottom-color: #3b82f6;
+  color: var(--secondary);
+  border-bottom-color: var(--secondary);
+  text-shadow: 0 0 5px var(--secondary);
 }
 
 .navbar-link.active {
-  color: #e2e8f0;
-  border-bottom-color: #3b82f6;
+  color: var(--secondary);
+  border-bottom-color: var(--secondary);
 }
 
 .navbar-actions {
@@ -166,12 +335,13 @@ body {
 }
 
 .navbar-user {
-  color: #94a3b8;
+  color: var(--text-muted);
   font-size: 14px;
+  font-family: 'Comic Neue', sans-serif;
 }
 
 .navbar-btn {
-  background: #3b82f6;
+  background: var(--gradient-primary);
   color: white;
   border: none;
   border-radius: 6px;
@@ -179,21 +349,27 @@ body {
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.3s ease;
+  font-family: 'Fira Code', monospace;
 }
 
 .navbar-btn:hover {
-  background: #2563eb;
+  transform: scale(1.05);
+  box-shadow: var(--shadow-glow);
 }
 
-/* Main Layout */
+/* ============================================
+   MAIN LAYOUT
+   ============================================ */
 .main-layout {
   padding: 24px;
   max-width: 1400px;
   margin: 0 auto;
 }
 
-/* Pages */
+/* ============================================
+   PAGES
+   ============================================ */
 .page {
   padding: 24px 0;
 }
@@ -205,14 +381,22 @@ body {
 .page-header h1 {
   font-size: 28px;
   font-weight: 700;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: 'Fira Code', monospace;
 }
 
 .page-header p {
-  color: #94a3b8;
+  color: var(--text-secondary);
   margin-top: 4px;
+  font-family: 'Comic Neue', sans-serif;
 }
 
-/* Dashboard */
+/* ============================================
+   DASHBOARD - Futuristic Girly
+   ============================================ */
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -220,19 +404,41 @@ body {
 }
 
 .dashboard-card {
-  background: #1e293b;
-  border-radius: 12px;
+  background: var(--bg-card);
+  border-radius: 16px;
   padding: 24px;
-  border: 1px solid #334155;
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.dashboard-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-primary);
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-card), var(--shadow-glow);
 }
 
 .dashboard-card h2 {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 16px;
+  color: var(--secondary);
+  font-family: 'Fira Code', monospace;
 }
 
-/* Scan Form */
+/* ============================================
+   SCAN FORM - Terminal Input Style
+   ============================================ */
 .scan-form {
   display: flex;
   gap: 12px;
@@ -241,21 +447,24 @@ body {
 
 .scan-input {
   flex: 1;
-  background: #0f172a;
-  border: 1px solid #334155;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 12px 16px;
-  color: #e2e8f0;
+  color: var(--text-primary);
   font-size: 16px;
+  font-family: 'Fira Code', monospace;
+  transition: all 0.3s ease;
 }
 
 .scan-input:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: var(--primary);
+  box-shadow: 0 0 10px rgba(255, 42, 109, 0.3);
 }
 
 .scan-btn {
-  background: #10b981;
+  background: var(--gradient-primary);
   color: white;
   border: none;
   border-radius: 8px;
@@ -263,74 +472,120 @@ body {
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.3s ease;
+  font-family: 'Fira Code', monospace;
 }
 
 .scan-btn:hover {
-  background: #059669;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow);
 }
 
 .scan-btn:disabled {
-  background: #475569;
+  background: var(--border);
   cursor: not-allowed;
+  opacity: 0.5;
 }
 
-/* Results Table */
+/* ============================================
+   RESULTS TABLE - Cyber Grid
+   ============================================ */
 .results-table {
   width: 100%;
   border-collapse: collapse;
+  background: var(--bg-input);
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .results-table th,
 .results-table td {
   padding: 12px 16px;
   text-align: left;
-  border-bottom: 1px solid #334155;
+  border-bottom: 1px solid var(--border);
 }
 
 .results-table th {
-  background: #0f172a;
+  background: var(--bg-card);
   font-weight: 600;
-  color: #94a3b8;
+  color: var(--secondary);
   font-size: 12px;
   text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: 'Fira Code', monospace;
 }
 
 .results-table tr:hover {
-  background: #0f172a;
+  background: rgba(255, 42, 109, 0.05);
 }
 
-/* Status Badges */
+.results-table tr:nth-child(even) {
+  background: rgba(0, 212, 255, 0.02);
+}
+
+/* ============================================
+   STATUS BADGES - Cute Hacker Style
+   ============================================ */
 .status-badge {
   display: inline-block;
   padding: 4px 12px;
   border-radius: 20px;
   font-size: 12px;
   font-weight: 600;
+  font-family: 'Fira Code', monospace;
 }
 
 .status-badge.running {
-  background: #10b98120;
-  color: #10b981;
+  background: rgba(0, 255, 136, 0.2);
+  color: var(--matrix-green);
+  border: 1px solid var(--matrix-green);
+  animation: blink 1s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
 }
 
 .status-badge.completed {
-  background: #3b82f620;
-  color: #3b82f6;
+  background: rgba(0, 212, 255, 0.2);
+  color: var(--secondary);
+  border: 1px solid var(--secondary);
 }
 
 .status-badge.failed {
-  background: #ef444420;
-  color: #ef4444;
+  background: rgba(255, 42, 109, 0.2);
+  color: var(--primary);
+  border: 1px solid var(--primary);
 }
 
-/* Alerts */
+/* ============================================
+   ALERTS - Girly Cyberpunk
+   ============================================ */
 .alert-item {
-  background: #0f172a;
-  border: 1px solid #334155;
-  border-radius: 8px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 12px;
   padding: 16px;
   margin-bottom: 12px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.alert-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--gradient-primary);
+}
+
+.alert-item:hover {
+  border-color: var(--primary);
+  transform: translateX(5px);
 }
 
 .alert-severity {
@@ -340,43 +595,170 @@ body {
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
+  font-family: 'Fira Code', monospace;
+  letter-spacing: 0.5px;
 }
 
 .alert-severity.high {
-  background: #ef4444;
+  background: var(--primary);
   color: white;
+  box-shadow: 0 0 10px rgba(255, 42, 109, 0.5);
 }
 
 .alert-severity.medium {
-  background: #f59e0b;
+  background: var(--accent);
   color: white;
+  box-shadow: 0 0 10px rgba(255, 0, 170, 0.5);
 }
 
 .alert-severity.low {
-  background: #10b981;
-  color: white;
+  background: var(--matrix-green);
+  color: var(--bg-dark);
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
 }
 
-/* Protected Route */
+/* ============================================
+   PROTECTED ROUTE - Cute Error
+   ============================================ */
 .protected-route {
   padding: 48px;
   text-align: center;
 }
 
 .protected-route h2 {
-  font-size: 20px;
+  font-size: 24px;
   margin-bottom: 16px;
+  color: var(--primary);
+  font-family: 'Comic Neue', sans-serif;
 }
 
 .protected-route p {
-  color: #94a3b8;
+  color: var(--text-muted);
+  font-family: 'Comic Neue', sans-serif;
 }
 
 .protected-route a {
-  color: #3b82f6;
+  color: var(--secondary);
   text-decoration: none;
+  font-family: 'Fira Code', monospace;
+  transition: all 0.3s ease;
 }
 
 .protected-route a:hover {
   text-decoration: underline;
+  text-shadow: 0 0 10px var(--secondary);
+}
+
+/* ============================================
+   UTILITY CLASSES - Extra Girly Touches
+   ============================================ */
+
+/* Glowing text effect for important elements */
+.glow-text {
+  text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
+}
+
+/* Sparkle animation for cute elements */
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+.sparkle {
+  position: relative;
+}
+
+.sparkle::after {
+  content: '✨';
+  position: absolute;
+  right: -15px;
+  top: -5px;
+  font-size: 16px;
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+/* Terminal-like code blocks */
+.code-block {
+  background: var(--bg-dark);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  font-family: 'Fira Code', monospace;
+  font-size: 14px;
+  overflow-x: auto;
+  position: relative;
+}
+
+.code-block::before {
+  content: '>';
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  color: var(--matrix-green);
+}
+
+/* Cute loading spinner */
+.loader {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Heart-shaped bullet points */
+.heart-list li {
+  list-style: none;
+  padding-left: 24px;
+  position: relative;
+}
+
+.heart-list li::before {
+  content: '♥';
+  position: absolute;
+  left: 0;
+  color: var(--primary);
+  font-size: 14px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+  }
+  
+  .navbar-links {
+    gap: 16px;
+  }
+  
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .login-card {
+    margin: 24px;
+    padding: 32px 24px;
+  }
+}
+
+/* Add a cute cursor trail effect */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  background: radial-gradient(circle at var(--mouse-x, 0px) var(--mouse-y, 0px), 
+    rgba(255, 42, 109, 0.1) 0%, transparent 20%);
+  transition: background 0.1s ease;
 }
