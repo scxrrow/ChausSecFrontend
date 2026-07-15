@@ -1,11 +1,8 @@
 /* ============================================
-   CHAUSSEC FRONTEND - FULL GIRLY THEME
-   Hello Kitty & Anime Girl Aesthetic
-   Pastel colors, cute elements, kawaii vibes!
+   CHAUSSEC — SOC DASHBOARD THEME
    ============================================ */
 
-/* Import super cute fonts */
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Comic+Neue:wght@400;700&family=Kavivanar&family=Noto+Serif+JP:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 * {
   margin: 0;
@@ -13,254 +10,130 @@
   box-sizing: border-box;
 }
 
-/* ============================================
-   CSS CUSTOM PROPERTIES - Kawaii Color Palette
-   ============================================ */
 :root {
-  /* Pastel Backgrounds */
-  --bg-primary: #fff5f7;
-  --bg-secondary: #fff0f5;
-  --bg-card: #ffffff;
-  --bg-input: #fff9fc;
-  
-  /* Main Colors - Super Girly */
-  --primary: #ff9eb5;
-  --primary-dark: #ff69b4;
-  --primary-light: #ffd1dc;
-  --secondary: #ffb6c1;
-  --accent: #ffc0cb;
-  --highlight: #ff69b4;
-  
-  /* Pastel Accents */
-  --pastel-pink: #ffb6c1;
-  --pastel-purple: #e6e6fa;
-  --pastel-blue: #add8e6;
-  --pastel-yellow: #fffacd;
-  --pastel-green: #98fb98;
-  --pastel-lavender: #f0e6ff;
-  
-  /* Text Colors */
-  --text-dark: #333333;
-  --text-medium: #666666;
-  --text-light: #999999;
-  --text-white: #ffffff;
-  
+  /* Backgrounds */
+  --bg-primary: #0a0e17;
+  --bg-secondary: #0e1420;
+  --bg-card: #131b2c;
+  --bg-card-hover: #16203400;
+  --bg-input: #0c1220;
+  --bg-elevated: #1a2338;
+
+  /* Accent */
+  --accent: #38bdf8;
+  --accent-dark: #0ea5e9;
+  --accent-light: #7dd3fc;
+  --accent-glow: rgba(56, 189, 248, 0.25);
+
+  /* Status colors */
+  --success: #22c55e;
+  --success-bg: rgba(34, 197, 94, 0.12);
+  --warning: #f59e0b;
+  --warning-bg: rgba(245, 158, 11, 0.12);
+  --danger: #f43f5e;
+  --danger-bg: rgba(244, 63, 94, 0.12);
+  --info: #38bdf8;
+  --info-bg: rgba(56, 189, 248, 0.12);
+
+  /* Text */
+  --text-primary: #e7ecf5;
+  --text-secondary: #9aa7bd;
+  --text-muted: #5c6a85;
+  --text-on-accent: #04121e;
+
   /* Borders */
-  --border-light: #ffe4e9;
-  --border-medium: #ffb6c1;
-  --border-dark: #ff9eb5;
-  
-  /* Shadows - Soft and Cute */
-  --shadow-soft: 0 4px 12px rgba(255, 158, 181, 0.2);
-  --shadow-medium: 0 8px 24px rgba(255, 158, 181, 0.3);
-  --shadow-glow: 0 0 20px rgba(255, 105, 180, 0.3);
-  
-  /* Gradients */
-  --gradient-pink: linear-gradient(135deg, #ff9eb5 0%, #ffb6c1 50%, #ffc0cb 100%);
-  --gradient-rainbow: linear-gradient(135deg, #ff9eb5 0%, #ffb6c1 25%, #e6e6fa 50%, #add8e6 75%, #98fb98 100%);
-  --gradient-pastel: linear-gradient(135deg, #fff0f5 0%, #ffe4e9 100%);
-  
-  /* Transitions */
-  --transition-fast: 0.2s ease;
-  --transition-normal: 0.3s ease;
-  --transition-slow: 0.5s ease;
+  --border: #202b42;
+  --border-hover: #2f3d5c;
+  --border-accent: rgba(56, 189, 248, 0.4);
+
+  /* Shadows */
+  --shadow-soft: 0 4px 16px rgba(0, 0, 0, 0.35);
+  --shadow-medium: 0 12px 32px rgba(0, 0, 0, 0.45);
+  --shadow-glow: 0 0 0 1px var(--border-accent), 0 0 24px var(--accent-glow);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
 }
 
-/* ============================================
-   BASE STYLES
-   ============================================ */
+html, body {
+  height: 100%;
+}
+
 body {
-  font-family: 'Comic Neue', 'Noto Serif JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background: var(--bg-primary);
-  color: var(--text-dark);
+  color: var(--text-primary);
   min-height: 100vh;
-  /* Super cute background pattern */
-  background-image: 
-    radial-gradient(circle at 10% 20%, rgba(255, 158, 181, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 90% 80%, rgba(255, 182, 193, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(255, 225, 220, 0.3) 0%, transparent 70%);
+  background-image:
+    radial-gradient(ellipse 900px 500px at 15% -10%, rgba(56, 189, 248, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 700px 500px at 100% 10%, rgba(56, 189, 248, 0.05) 0%, transparent 60%);
+  background-attachment: fixed;
 }
 
-/* Scrollbar - Super cute pink */
+code, .mono {
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
+  height: 10px;
 }
-
 ::-webkit-scrollbar-track {
   background: var(--bg-secondary);
 }
-
 ::-webkit-scrollbar-thumb {
-  background: var(--pastel-pink);
+  background: var(--border-hover);
   border-radius: 5px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary);
+  background: var(--accent-dark);
 }
-
-/* Selection - Pastel pink highlight */
 ::selection {
-  background: var(--pastel-pink);
-  color: var(--text-dark);
+  background: var(--accent-glow);
+  color: var(--text-primary);
+}
+
+a {
+  color: var(--accent);
 }
 
 /* ============================================
-   UTILITY CLASSES - Kawaii Elements
-   ============================================ */
-
-/* Sparkle animation */
-@keyframes sparkle {
-  0%, 100% { 
-    opacity: 0; 
-    transform: scale(0) rotate(0deg); 
-  }
-  50% { 
-    opacity: 1; 
-    transform: scale(1) rotate(180deg); 
-  }
-}
-
-.sparkle {
-  position: relative;
-}
-
-.sparkle::after {
-  content: '✨';
-  position: absolute;
-  right: -20px;
-  top: -10px;
-  font-size: 20px;
-  animation: sparkle 2s ease-in-out infinite;
-  color: var(--highlight);
-}
-
-/* Heart animation */
-@keyframes heartbeat {
-  0%, 100% { transform: scale(1); }
-  25% { transform: scale(1.1); }
-  50% { transform: scale(1); }
-  75% { transform: scale(1.1); }
-}
-
-.heartbeat {
-  animation: heartbeat 1.5s ease-in-out infinite;
-}
-
-/* Bounce animation */
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-.bounce {
-  animation: bounce 2s ease-in-out infinite;
-}
-
-/* Rainbow border */
-.rainbow-border {
-  position: relative;
-}
-
-.rainbow-border::before {
-  content: '';
-  position: absolute;
-  top: -3px;
-  left: -3px;
-  right: -3px;
-  bottom: -3px;
-  background: var(--gradient-rainbow);
-  border-radius: inherit;
-  z-index: -1;
-  opacity: 0.3;
-}
-
-/* Polka dot pattern */
-.polka-dot {
-  background-image: radial-gradient(circle, var(--pastel-pink) 2px, transparent 2px);
-  background-size: 20px 20px;
-}
-
-/* Stripe pattern */
-.striped {
-  background: repeating-linear-gradient(
-    45deg,
-    var(--pastel-pink),
-    var(--pastel-pink) 10px,
-    var(--bg-card) 10px,
-    var(--bg-card) 20px
-  );
-}
-
-/* ============================================
-   LOGIN PAGE - Super Cute & Welcoming
+   LOGIN PAGE
    ============================================ */
 .login-container {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: var(--bg-primary);
   position: relative;
   overflow: hidden;
+  padding: 24px;
 }
 
 .login-container::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: 
-    radial-gradient(circle at 20% 30%, rgba(255, 158, 181, 0.1) 0%, transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(255, 182, 193, 0.1) 0%, transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(255, 225, 220, 0.2) 0%, transparent 60%);
-}
-
-/* Floating cute shapes in background */
-.login-container::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    radial-gradient(circle at 15% 25%, white 2px, transparent 2px),
-    radial-gradient(circle at 85% 15%, white 2px, transparent 2px),
-    radial-gradient(circle at 60% 85%, white 2px, transparent 2px),
-    radial-gradient(circle at 25% 75%, white 2px, transparent 2px);
-  background-size: 100px 100px;
-  animation: float 6s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.12) 0%, transparent 45%),
+    radial-gradient(circle at 80% 80%, rgba(56, 189, 248, 0.08) 0%, transparent 45%);
+  pointer-events: none;
 }
 
 .login-card {
   background: var(--bg-card);
-  border-radius: 20px;
-  padding: 48px;
+  border-radius: var(--radius-lg);
+  padding: 44px 40px;
   width: 100%;
-  max-width: 450px;
+  max-width: 420px;
   box-shadow: var(--shadow-medium);
-  border: 2px solid var(--border-light);
+  border: 1px solid var(--border);
   position: relative;
   z-index: 10;
-}
-
-.login-card::before {
-  content: '';
-  position: absolute;
-  top: -5px;
-  left: -5px;
-  right: -5px;
-  bottom: -5px;
-  background: var(--gradient-pink);
-  border-radius: 22px;
-  z-index: -1;
-  opacity: 0.3;
 }
 
 .login-header {
@@ -269,620 +142,633 @@ body {
 }
 
 .login-icon {
-  font-size: 64px;
-  display: block;
-  margin-bottom: 16px;
-  color: var(--primary);
-  animation: bounce 2s ease-in-out infinite;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+  font-size: 26px;
+  box-shadow: 0 0 30px var(--accent-glow);
 }
 
 .login-header h1 {
-  font-family: 'Pacifico', cursive;
-  font-size: 32px;
-  color: var(--primary-dark);
-  margin-bottom: 8px;
-  text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.2);
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: 6px;
 }
 
 .login-header p {
-  color: var(--text-medium);
-  font-size: 16px;
-  font-family: 'Comic Neue', sans-serif;
+  color: var(--text-secondary);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 7px;
 }
 
 .form-group label {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
-  color: var(--text-dark);
-  font-family: 'Comic Neue', sans-serif;
+  color: var(--text-secondary);
 }
 
 .form-group input {
   background: var(--bg-input);
-  border: 2px solid var(--border-light);
-  border-radius: 12px;
-  padding: 14px 20px;
-  color: var(--text-dark);
-  font-size: 16px;
-  transition: all var(--transition-normal);
-  font-family: 'Noto Serif JP', sans-serif;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  color: var(--text-primary);
+  font-size: 15px;
+  transition: all var(--transition-fast);
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 15px rgba(255, 158, 181, 0.3);
-  transform: scale(1.02);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
 }
 
 .form-group input::placeholder {
-  color: var(--text-light);
+  color: var(--text-muted);
 }
 
 .error-msg {
-  background: var(--pastel-pink);
-  border: 2px solid var(--primary);
-  color: var(--primary-dark);
-  padding: 14px 20px;
-  border-radius: 12px;
-  font-size: 14px;
-  text-align: center;
-  font-family: 'Comic Neue', sans-serif;
-  animation: shake 0.5s ease;
-}
-
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-8px); }
-  75% { transform: translateX(8px); }
+  background: var(--danger-bg);
+  border: 1px solid rgba(244, 63, 94, 0.4);
+  color: #fda4af;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 13.5px;
 }
 
 .submit-btn {
-  background: var(--gradient-pink);
-  color: white;
+  background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+  color: var(--text-on-accent);
   border: none;
-  border-radius: 12px;
-  padding: 16px 32px;
-  font-size: 16px;
+  border-radius: var(--radius-sm);
+  padding: 13px 24px;
+  font-size: 15px;
   font-weight: 700;
   cursor: pointer;
   transition: all var(--transition-normal);
-  margin-top: 8px;
-  font-family: 'Comic Neue', sans-serif;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  margin-top: 4px;
 }
 
-.submit-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-glow);
+.submit-btn:hover:not(:disabled) {
+  filter: brightness(1.1);
+  box-shadow: 0 0 24px var(--accent-glow);
 }
 
 .submit-btn:disabled {
-  background: var(--border-light);
-  color: var(--text-medium);
+  background: var(--border);
+  color: var(--text-muted);
   cursor: not-allowed;
 }
 
 /* ============================================
-   NAVBAR - Kawaii Navigation
+   NAVBAR
    ============================================ */
 .navbar {
-  background: var(--bg-card);
-  padding: 16px 24px;
+  background: rgba(14, 20, 32, 0.85);
+  backdrop-filter: blur(10px);
+  padding: 14px 28px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid var(--border-light);
-  box-shadow: var(--shadow-soft);
+  border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
   z-index: 100;
 }
 
 .navbar-title {
-  font-size: 24px;
-  font-weight: 700;
-  font-family: 'Pacifico', cursive;
-  color: var(--primary-dark);
-  text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.2);
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar-title::before {
+  content: '';
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--success);
+  box-shadow: 0 0 8px var(--success);
 }
 
 .navbar-links {
   display: flex;
-  gap: 24px;
+  gap: 4px;
 }
 
 .navbar-link {
-  color: var(--text-medium);
+  color: var(--text-secondary);
   text-decoration: none;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
-  padding: 8px 0;
-  border-bottom: 2px solid transparent;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
   transition: all var(--transition-fast);
-  font-family: 'Comic Neue', sans-serif;
 }
 
 .navbar-link:hover {
-  color: var(--primary-dark);
-  border-bottom-color: var(--primary);
+  color: var(--text-primary);
+  background: var(--bg-elevated);
 }
 
 .navbar-link.active {
-  color: var(--primary-dark);
-  border-bottom-color: var(--primary);
+  color: var(--accent-light);
+  background: var(--info-bg);
 }
 
 .navbar-actions {
   display: flex;
-  gap: 12px;
+  gap: 14px;
   align-items: center;
 }
 
 .navbar-user {
-  color: var(--text-medium);
-  font-size: 14px;
-  font-family: 'Comic Neue', sans-serif;
+  color: var(--text-secondary);
+  font-size: 13.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.navbar-user::before {
+  content: '';
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-dark), var(--accent));
 }
 
 .navbar-btn {
-  background: var(--gradient-pink);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 8px 16px;
+  font-size: 13.5px;
   font-weight: 600;
   cursor: pointer;
   transition: all var(--transition-fast);
-  font-family: 'Comic Neue', sans-serif;
 }
 
 .navbar-btn:hover {
-  transform: scale(1.05);
-  box-shadow: var(--shadow-soft);
+  color: var(--danger);
+  border-color: rgba(244, 63, 94, 0.4);
+  background: var(--danger-bg);
 }
 
 /* ============================================
-   MAIN LAYOUT
+   LAYOUT
    ============================================ */
 .main-layout {
-  padding: 24px;
+  padding: 32px 28px 64px;
   max-width: 1400px;
   margin: 0 auto;
 }
 
-/* ============================================
-   PAGES
-   ============================================ */
 .page {
-  padding: 24px 0;
+  padding: 0;
 }
 
 .page-header {
-  margin-bottom: 24px;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
 .page-header h1 {
-  font-size: 32px;
-  font-weight: 700;
-  font-family: 'Pacifico', cursive;
-  color: var(--primary-dark);
-  text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.2);
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
 }
 
 .page-header p {
-  color: var(--text-medium);
-  margin-top: 8px;
-  font-family: 'Comic Neue', sans-serif;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  font-size: 14.5px;
 }
 
 /* ============================================
-   DASHBOARD - Super Cute Cards
+   STAT CARDS
+   ============================================ */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: border-color var(--transition-fast);
+}
+
+.stat-card:hover {
+  border-color: var(--border-hover);
+}
+
+.stat-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stat-card-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.stat-card-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.stat-card-icon.accent { background: var(--info-bg); color: var(--accent); }
+.stat-card-icon.success { background: var(--success-bg); color: var(--success); }
+.stat-card-icon.warning { background: var(--warning-bg); color: var(--warning); }
+.stat-card-icon.danger { background: var(--danger-bg); color: var(--danger); }
+
+.stat-card-value {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.stat-card-sub {
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+/* ============================================
+   DASHBOARD CARDS
    ============================================ */
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 24px;
+  gap: 20px;
 }
 
 .dashboard-card {
   background: var(--bg-card);
-  border-radius: 20px;
-  padding: 28px;
-  border: 2px solid var(--border-light);
-  position: relative;
-  overflow: hidden;
-  transition: all var(--transition-normal);
-  box-shadow: var(--shadow-soft);
-}
-
-.dashboard-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 5px;
-  background: var(--gradient-pink);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  border: 1px solid var(--border);
+  transition: border-color var(--transition-normal);
 }
 
 .dashboard-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-medium);
-  border-color: var(--primary);
+  border-color: var(--border-hover);
 }
 
 .dashboard-card h2 {
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 700;
   margin-bottom: 16px;
-  color: var(--primary-dark);
-  font-family: 'Comic Neue', sans-serif;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 /* ============================================
-   SCAN FORM - Kawaii Input
+   SCAN FORM
    ============================================ */
 .scan-form {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   margin-bottom: 24px;
 }
 
 .scan-input {
   flex: 1;
   background: var(--bg-input);
-  border: 2px solid var(--border-light);
-  border-radius: 12px;
-  padding: 14px 20px;
-  color: var(--text-dark);
-  font-size: 16px;
-  font-family: 'Noto Serif JP', sans-serif;
-  transition: all var(--transition-normal);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  color: var(--text-primary);
+  font-size: 15px;
+  font-family: 'JetBrains Mono', monospace;
+  transition: all var(--transition-fast);
 }
 
 .scan-input:focus {
   outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 15px rgba(255, 158, 181, 0.3);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
 }
 
 .scan-btn {
-  background: var(--gradient-pink);
-  color: white;
+  background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+  color: var(--text-on-accent);
   border: none;
-  border-radius: 12px;
-  padding: 14px 28px;
-  font-size: 16px;
+  border-radius: var(--radius-sm);
+  padding: 12px 26px;
+  font-size: 14.5px;
   font-weight: 700;
   cursor: pointer;
   transition: all var(--transition-normal);
-  font-family: 'Comic Neue', sans-serif;
-  text-transform: uppercase;
+  white-space: nowrap;
 }
 
-.scan-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-glow);
+.scan-btn:hover:not(:disabled) {
+  filter: brightness(1.1);
+  box-shadow: 0 0 20px var(--accent-glow);
 }
 
 .scan-btn:disabled {
-  background: var(--border-light);
-  color: var(--text-medium);
+  background: var(--border);
+  color: var(--text-muted);
   cursor: not-allowed;
 }
 
 /* ============================================
-   RESULTS TABLE - Pastel & Cute
+   TABLES
    ============================================ */
 .results-table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
   background: var(--bg-card);
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   overflow: hidden;
-  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--border);
 }
 
 .results-table th,
 .results-table td {
-  padding: 14px 20px;
+  padding: 12px 18px;
   text-align: left;
+  font-size: 14px;
 }
 
 .results-table th {
-  background: var(--pastel-pink);
-  font-weight: 700;
-  color: var(--text-dark);
-  font-size: 13px;
+  background: var(--bg-elevated);
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 11.5px;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  font-family: 'Comic Neue', sans-serif;
+  letter-spacing: 0.06em;
 }
 
-.results-table tr {
-  border-bottom: 1px solid var(--border-light);
+.results-table tr:not(:last-child) td {
+  border-bottom: 1px solid var(--border);
 }
 
-.results-table tr:last-child {
-  border-bottom: none;
+.results-table tbody tr {
+  transition: background var(--transition-fast);
 }
 
-.results-table tr:hover {
-  background: var(--bg-input);
+.results-table tbody tr:hover {
+  background: var(--bg-elevated);
 }
 
-.results-table tr:nth-child(even) {
-  background: var(--bg-input);
+.results-table td {
+  color: var(--text-primary);
 }
+
+.results-table .muted {
+  color: var(--text-muted);
+}
+
+.port-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.port-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 3px 10px 3px 8px;
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-primary);
+}
+
+.port-chip .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+
+.port-chip.open .dot { background: var(--success); }
+.port-chip.closed .dot { background: var(--danger); }
+.port-chip.filtered .dot { background: var(--warning); }
 
 /* ============================================
-   STATUS BADGES - Super Kawaii
+   STATUS BADGES
    ============================================ */
 .status-badge {
-  display: inline-block;
-  padding: 6px 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
   border-radius: 20px;
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 700;
-  font-family: 'Comic Neue', sans-serif;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.04em;
+}
+
+.status-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
 }
 
 .status-badge.running {
-  background: var(--pastel-green);
-  color: var(--text-dark);
-  border: 2px solid var(--pastel-green);
+  background: var(--info-bg);
+  color: var(--accent-light);
 }
+.status-badge.running::before { background: var(--accent); }
 
-.status-badge.completed {
-  background: var(--pastel-blue);
-  color: var(--text-dark);
-  border: 2px solid var(--pastel-blue);
+.status-badge.completed,
+.status-badge.success {
+  background: var(--success-bg);
+  color: #86efac;
 }
+.status-badge.completed::before,
+.status-badge.success::before { background: var(--success); }
 
 .status-badge.failed {
-  background: var(--pastel-pink);
-  color: var(--text-dark);
-  border: 2px solid var(--primary);
+  background: var(--danger-bg);
+  color: #fda4af;
 }
+.status-badge.failed::before { background: var(--danger); }
 
 /* ============================================
-   ALERTS - Anime Girl Style
+   ALERTS
    ============================================ */
 .alert-item {
   background: var(--bg-card);
-  border: 2px solid var(--border-light);
-  border-radius: 16px;
-  padding: 20px;
-  margin-bottom: 16px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  margin-bottom: 12px;
   transition: all var(--transition-normal);
-  position: relative;
-  overflow: hidden;
-}
-
-.alert-item::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 5px;
-  height: 100%;
-  background: var(--gradient-pink);
 }
 
 .alert-item:hover {
-  border-color: var(--primary);
-  transform: translateX(5px);
-  box-shadow: var(--shadow-soft);
+  border-color: var(--border-hover);
+  border-left-color: var(--accent);
+  background: var(--bg-elevated);
 }
 
 .alert-severity {
   display: inline-block;
-  padding: 4px 10px;
+  padding: 3px 10px;
   border-radius: 6px;
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 700;
   text-transform: uppercase;
-  font-family: 'Comic Neue', sans-serif;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.05em;
 }
 
-.alert-severity.high {
-  background: var(--primary);
-  color: white;
+.alert-severity.high,
+.alert-severity.critical {
+  background: var(--danger-bg);
+  color: #fda4af;
 }
 
 .alert-severity.medium {
-  background: var(--pastel-purple);
-  color: var(--text-dark);
+  background: var(--warning-bg);
+  color: #fcd34d;
 }
 
 .alert-severity.low {
-  background: var(--pastel-green);
-  color: var(--text-dark);
+  background: var(--success-bg);
+  color: #86efac;
+}
+
+.alert-meta {
+  margin-top: 8px;
+  font-size: 12.5px;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
 }
 
 /* ============================================
-   PROTECTED ROUTE - Cute Error
+   MISC
    ============================================ */
+.empty-state {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.loading-state {
+  color: var(--text-secondary);
+  font-size: 14px;
+  padding: 8px 0;
+}
+
 .protected-route {
-  padding: 48px;
+  padding: 64px 24px;
   text-align: center;
 }
 
 .protected-route h2 {
-  font-size: 28px;
-  margin-bottom: 16px;
-  color: var(--primary-dark);
-  font-family: 'Pacifico', cursive;
+  font-size: 22px;
+  margin-bottom: 12px;
+  color: var(--text-primary);
 }
 
 .protected-route p {
-  color: var(--text-medium);
-  font-family: 'Comic Neue', sans-serif;
+  color: var(--text-secondary);
 }
 
 .protected-route a {
-  color: var(--primary);
+  color: var(--accent);
   text-decoration: none;
-  font-family: 'Comic Neue', sans-serif;
   font-weight: 600;
-  transition: all var(--transition-fast);
 }
 
 .protected-route a:hover {
   text-decoration: underline;
-  color: var(--primary-dark);
 }
 
-/* ============================================
-   EXTRA KAWAII ELEMENTS
-   ============================================ */
-
-/* Cute buttons with icons */
-.cute-btn {
-  background: var(--gradient-pink);
-  color: white;
-  border: none;
-  border-radius: 50px;
-  padding: 12px 24px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all var(--transition-normal);
-  font-family: 'Comic Neue', sans-serif;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.cute-btn:hover {
-  transform: scale(1.05);
-  box-shadow: var(--shadow-soft);
-}
-
-/* Flower border */
-.flower-border {
-  position: relative;
-  padding: 20px;
-}
-
-.flower-border::before,
-.flower-border::after {
-  content: '❀';
-  position: absolute;
-  font-size: 24px;
-  color: var(--primary);
-  opacity: 0.5;
-}
-
-.flower-border::before {
-  top: 10px;
-  left: 10px;
-}
-
-.flower-border::after {
-  bottom: 10px;
-  right: 10px;
-}
-
-/* Star decorations */
-.star-decoration {
-  position: relative;
-}
-
-.star-decoration::before {
-  content: '⭐';
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  font-size: 20px;
-  color: var(--highlight);
-  animation: twinkle 2s ease-in-out infinite;
-}
-
-@keyframes twinkle {
-  0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
-  50% { opacity: 0.5; transform: scale(1.2) rotate(180deg); }
-}
-
-/* Bubble effect */
-.bubble {
-  position: relative;
-}
-
-.bubble::after {
-  content: '';
-  position: absolute;
-  bottom: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-top: 15px solid var(--bg-card);
-}
-
-/* Cloud background */
-.cloud-bg {
-  background-image: 
-    radial-gradient(ellipse at 20% 30%, var(--bg-secondary) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, var(--bg-secondary) 0%, transparent 50%),
-    radial-gradient(ellipse at 40% 80%, var(--bg-secondary) 0%, transparent 50%);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
+/* Responsive */
+@media (max-width: 860px) {
   .navbar {
     flex-direction: column;
-    gap: 16px;
-    padding: 16px;
+    gap: 12px;
+    padding: 14px 18px;
   }
-  
+
   .navbar-links {
-    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
-  
-  .dashboard-grid {
-    grid-template-columns: 1fr;
+
+  .main-layout {
+    padding: 20px 16px 48px;
   }
-  
+
   .login-card {
-    margin: 24px;
     padding: 32px 24px;
   }
-  
+
   .page-header h1 {
-    font-size: 28px;
+    font-size: 22px;
+  }
+
+  .scan-form {
+    flex-direction: column;
   }
 }
 
-/* Print styles - Keep it cute even on paper */
 @media print {
-  body {
-    background: white;
-  }
-  
-  .navbar,
-  .scan-form {
-    display: none;
-  }
+  body { background: white; }
+  .navbar, .scan-form { display: none; }
 }

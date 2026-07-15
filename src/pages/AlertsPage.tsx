@@ -29,11 +29,11 @@ export function AlertsPage() {
       </div>
 
       {loading ? (
-        <p>Chargement...</p>
+        <p className="loading-state">Chargement...</p>
       ) : error ? (
-        <p style={{ color: '#ef4444' }}>{error}</p>
+        <p className="error-msg" style={{ maxWidth: 480 }}>{error}</p>
       ) : alerts.length === 0 ? (
-        <p>Aucune alerte trouvée</p>
+        <div className="empty-state">Aucune alerte trouvée</div>
       ) : (
         <div>
           {alerts.map((alert, index) => (
@@ -44,11 +44,11 @@ export function AlertsPage() {
                 </span>
                 <span style={{ fontWeight: 600 }}>{alert.alert.signature}</span>
               </div>
-              <div style={{ marginTop: '8px', fontSize: '14px', color: '#cbd5e1' }}>
+              <div style={{ marginTop: '8px', fontSize: '13.5px', color: 'var(--text-secondary)' }}>
                 {alert.alert.category}
               </div>
-              <div style={{ marginTop: '8px', fontSize: '12px', color: '#94a3b8' }}>
-                {new Date(alert.timestamp).toLocaleString()} | {alert.proto} | {alert.src_ip}:{alert.src_port} → {alert.dest_ip}:{alert.dest_port}
+              <div className="alert-meta">
+                {new Date(alert.timestamp).toLocaleString()} · {alert.proto} · {alert.src_ip}:{alert.src_port} → {alert.dest_ip}:{alert.dest_port}
               </div>
             </div>
           ))}

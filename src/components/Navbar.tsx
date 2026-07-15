@@ -39,8 +39,9 @@ export function Navbar() {
             </Link>
           </div>
           <div className="navbar-actions">
+            <span className="navbar-user">superadmin</span>
             <button className="navbar-btn" onClick={logout}>
-              DÃ©connexion
+              Déconnexion
             </button>
           </div>
         </>

@@ -38,7 +38,7 @@ export function LoginPage() {
     <div className="login-container">
       <div className="login-card">
         <div className="login-header">
-          <span className="login-icon">⬡</span>
+          <span className="login-icon">🛡</span>
           <h1>ChausSec SOC</h1>
           <p>Security Operations Center</p>
         </div>

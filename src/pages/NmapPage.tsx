@@ -55,18 +55,38 @@ export function NmapPage() {
         </button>
       </form>
 
-      {error && <div className="error-msg">{error}</div>}
+      {error && <div className="error-msg" style={{ marginBottom: 20 }}>{error}</div>}
 
       {result && (
-        <div className="dashboard-card" style={{ marginTop: '24px' }}>
-          <h2>Résultat du scan</h2>
-          <p><strong>Cible:</strong> {result.target}</p>
-          <p><strong>Statut:</strong> {result.status}</p>
-          <p><strong>OS:</strong> {result.os || 'Inconnu'}</p>
-          
-          <h3 style={{ marginTop: '16px' }}>Ports ouverts:</h3>
+        <div className="dashboard-card" style={{ marginBottom: '24px' }}>
+          <h2>
+            Résultat du scan
+            <span className={`status-badge ${result.status.toLowerCase() === 'success' ? 'success' : 'failed'}`}>
+              {result.status}
+            </span>
+          </h2>
+          <div style={{ display: 'flex', gap: '28px', flexWrap: 'wrap', marginBottom: '18px', fontSize: '14px' }}>
+            <div>
+              <div className="stat-card-label" style={{ marginBottom: 4 }}>Cible</div>
+              <div className="mono">{result.target}</div>
+            </div>
+            <div>
+              <div className="stat-card-label" style={{ marginBottom: 4 }}>Système</div>
+              <div>{result.os || 'Inconnu'}</div>
+            </div>
+            <div>
+              <div className="stat-card-label" style={{ marginBottom: 4 }}>Durée</div>
+              <div className="mono">
+                {((new Date(result.timestamps.end).getTime() - new Date(result.timestamps.start).getTime()) / 1000).toFixed(2)} s
+              </div>
+            </div>
+          </div>
+
+          <h3 style={{ marginBottom: '12px', fontSize: '13px', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            Ports détectés
+          </h3>
           {result.ports.length === 0 ? (
-            <p>Aucun port ouvert trouvé</p>
+            <div className="empty-state" style={{ padding: '24px' }}>Aucun port ouvert trouvé sur cette cible</div>
           ) : (
             <table className="results-table">
               <thead>
@@ -79,9 +99,14 @@ export function NmapPage() {
               <tbody>
                 {result.ports.map((port) => (
                   <tr key={port.port}>
-                    <td>{port.port}</td>
-                    <td>{port.state}</td>
-                    <td>{port.service}</td>
+                    <td className="mono">{port.port}</td>
+                    <td>
+                      <span className={`port-chip ${port.state}`}>
+                        <span className="dot" />
+                        {port.state}
+                      </span>
+                    </td>
+                    <td>{port.service || '—'}</td>
                   </tr>
                 ))}
               </tbody>
@@ -90,10 +115,10 @@ export function NmapPage() {
         </div>
       )}
 
-      <div className="dashboard-card" style={{ marginTop: '24px' }}>
-        <h2>Historique des scans</h2>
+      <div className="dashboard-card">
+        <h2>Scans récents</h2>
         {scans.length === 0 ? (
-          <p>Aucun scan précédent</p>
+          <div className="empty-state">Aucun scan précédent</div>
         ) : (
           <table className="results-table">
             <thead>
@@ -105,14 +130,21 @@ export function NmapPage() {
               </tr>
             </thead>
             <tbody>
-              {scans.slice(0, 10).map((scan) => (
-                <tr key={scan.id}>
-                  <td>{scan.target}</td>
-                  <td>{scan.status}</td>
-                  <td>{scan.portCount}</td>
-                  <td>{new Date(scan.startTime).toLocaleDateString()}</td>
-                </tr>
-              ))}
+              {[...scans]
+                .sort((a, b) => new Date(b.startTime).getTime() - new Date(a.startTime).getTime())
+                .slice(0, 10)
+                .map((scan) => (
+                  <tr key={scan.id}>
+                    <td className="mono">{scan.target}</td>
+                    <td>
+                      <span className={`status-badge ${scan.status.toLowerCase() === 'success' ? 'success' : 'failed'}`}>
+                        {scan.status}
+                      </span>
+                    </td>
+                    <td>{scan.portCount}</td>
+                    <td>{new Date(scan.startTime).toLocaleDateString()}</td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         )}
