@@ -25,6 +25,12 @@
   --accent-light: #7dd3fc;
   --accent-glow: rgba(56, 189, 248, 0.25);
 
+  /* Brand pink - used sparingly as a signature accent */
+  --pink: #ff5fa8;
+  --pink-dark: #f43f8f;
+  --pink-light: #ffa5cf;
+  --pink-glow: rgba(255, 95, 168, 0.28);
+
   /* Status colors */
   --success: #22c55e;
   --success-bg: rgba(34, 197, 94, 0.12);
@@ -149,9 +155,9 @@ a {
   align-items: center;
   justify-content: center;
   margin: 0 auto 20px;
-  background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+  background: linear-gradient(135deg, var(--pink-dark), var(--pink));
   font-size: 26px;
-  box-shadow: 0 0 30px var(--accent-glow);
+  box-shadow: 0 0 30px var(--pink-glow);
 }
 
 .login-header h1 {
@@ -199,8 +205,8 @@ a {
 
 .form-group input:focus {
   outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-glow);
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px var(--pink-glow);
 }
 
 .form-group input::placeholder {
@@ -217,7 +223,7 @@ a {
 }
 
 .submit-btn {
-  background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+  background: linear-gradient(135deg, var(--pink-dark), var(--pink));
   color: var(--text-on-accent);
   border: none;
   border-radius: var(--radius-sm);
@@ -231,7 +237,7 @@ a {
 
 .submit-btn:hover:not(:disabled) {
   filter: brightness(1.1);
-  box-shadow: 0 0 24px var(--accent-glow);
+  box-shadow: 0 0 24px var(--pink-glow);
 }
 
 .submit-btn:disabled {
@@ -296,8 +302,8 @@ a {
 }
 
 .navbar-link.active {
-  color: var(--accent-light);
-  background: var(--info-bg);
+  color: var(--pink-light);
+  background: var(--pink-glow);
 }
 
 .navbar-actions {
@@ -319,7 +325,7 @@ a {
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+  background: linear-gradient(135deg, var(--pink-dark), var(--pink));
 }
 
 .navbar-btn {
@@ -501,7 +507,7 @@ a {
 }
 
 .scan-btn {
-  background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+  background: linear-gradient(135deg, var(--pink-dark), var(--pink));
   color: var(--text-on-accent);
   border: none;
   border-radius: var(--radius-sm);
@@ -515,7 +521,7 @@ a {
 
 .scan-btn:hover:not(:disabled) {
   filter: brightness(1.1);
-  box-shadow: 0 0 20px var(--accent-glow);
+  box-shadow: 0 0 20px var(--pink-glow);
 }
 
 .scan-btn:disabled {
