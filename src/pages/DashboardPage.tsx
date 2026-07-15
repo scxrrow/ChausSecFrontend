@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { getRecentAlerts, getScanHistory } from '../api/chaussec'
 import { GrafanaDashboard } from '../components/GrafanaDashboard'
 import type { ScanHistoryItem, SuricataAlert } from '../types'
+import { severityLabel } from '../utils'
 
 // Get from environment or use defaults
 const GRAFANA_URL = import.meta.env.VITE_GRAFANA_URL || '/grafana'
@@ -31,7 +32,7 @@ export function DashboardPage() {
   }, [])
 
   const highSeverityCount = alerts.filter((a) =>
-    ['high', 'critical'].includes(a.alert.severity?.toLowerCase())
+    ['high', 'critical'].includes(severityLabel(a.alert_severity))
   ).length
   const openPortsTotal = scans.reduce((sum, s) => sum + (s.portCount || 0), 0)
   const failedScans = scans.filter((s) => s.status?.toLowerCase() === 'failed').length
@@ -105,10 +106,10 @@ export function DashboardPage() {
             <div>
               {alerts.slice(0, 5).map((alert, index) => (
                 <div key={index} className="alert-item">
-                  <span className={`alert-severity ${alert.alert.severity.toLowerCase()}`}>
-                    {alert.alert.severity}
+                  <span className={`alert-severity ${severityLabel(alert.alert_severity)}`}>
+                    {severityLabel(alert.alert_severity)}
                   </span>
-                  <span style={{ marginLeft: '12px', fontWeight: 600 }}>{alert.alert.signature}</span>
+                  <span style={{ marginLeft: '12px', fontWeight: 600 }}>{alert.alert_signature}</span>
                   <div className="alert-meta">
                     {alert.src_ip}:{alert.src_port} → {alert.dest_ip}:{alert.dest_port}
                   </div>

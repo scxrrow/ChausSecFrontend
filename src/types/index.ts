@@ -25,11 +25,9 @@ export interface ScanHistoryItem {
 export interface SuricataAlert {
   timestamp: string
   event_type: string
-  alert: {
-    signature: string
-    severity: string
-    category: string
-  }
+  alert_signature: string
+  alert_severity: number | string
+  alert_category: string
   src_ip: string
   src_port: number
   dest_ip: string
