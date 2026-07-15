@@ -4,7 +4,7 @@ import { GrafanaDashboard } from '../components/GrafanaDashboard'
 import type { SuricataAlert } from '../types'
 
 // Get from environment or use defaults
-const GRAFANA_URL = import.meta.env.VITE_GRAFANA_URL || 'http://localhost:3000'
+const GRAFANA_URL = import.meta.env.VITE_GRAFANA_URL || '/grafana'
 const GRAFANA_DASHBOARD_UID = import.meta.env.VITE_GRAFANA_DASHBOARD_UID || 'chaussec-soc'
 
 export function DashboardPage() {

@@ -8,7 +8,7 @@ interface GrafanaDashboardProps {
 
 export function GrafanaDashboard({ 
   dashboardUid,
-  dashboardUrl = 'http://localhost:3000',
+  dashboardUrl = '/grafana',
   height = '600px' 
 }: GrafanaDashboardProps) {
   const iframeRef = useRef<HTMLIFrameElement>(null)
